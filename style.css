@@ -1,0 +1,66 @@
+/*
+Theme Name: Multi Child
+Description: This is a child theme for Flatsome Theme
+Author: UX Themes
+Template: flatsome
+Version: 3.0
+*/
+
+/*************** ADD CUSTOM CSS HERE.   ***************/
+
+
+.ticket {
+    float: left;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    width: 50px;
+}
+
+.ticket:hover {
+   color: white;
+   background-color: red;
+   cursor:  pointer;
+}
+
+.ticket.selected{
+	background-color: red;
+	color: white;
+}
+
+.ticket-price .current-price {
+    display: none;
+}
+
+.ticket-sold{
+	background-color: #777777;
+	cursor: none;
+}
+
+.ticket-sold:hover{
+	background-color: #777777 !important;
+	cursor: none !important;
+	color: #777777;
+}
+
+form.cart {
+    clear: both;
+}
+
+
+section#tickets {
+    width: 500px;
+}
+
+
+section#total-tickets-purchased {
+	clear: both;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+@media only screen and (max-width: 48em) {
+/*************** ADD MOBILE ONLY CSS HERE  ***************/
+
+
+}
