@@ -1,6 +1,6 @@
 <?php 
 
-/* enable the use of ajaxurl as a variable */
+/* enable the use of ajaxurl as a variable fuck fuck fuck */
 
 
 add_action('wp_head', 'myplugin_ajaxurl');
@@ -74,7 +74,7 @@ global $woocommerce, $product;
         
     }
 
-    
+
 return $passed;
 }
 add_action( 'woocommerce_add_to_cart_validation', 'add_the_date_validation', 10, 5 ); 
