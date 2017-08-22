@@ -1,6 +1,6 @@
 <?php 
 
-/* enable the use of ajaxurl as a variable fuck fuck fuck */
+/* enable the use of ajaxurl as a variable*/
 
 
 add_action('wp_head', 'myplugin_ajaxurl');
