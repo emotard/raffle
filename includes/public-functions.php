@@ -73,6 +73,8 @@ global $woocommerce, $product;
           }
         
     }
+
+    
 return $passed;
 }
 add_action( 'woocommerce_add_to_cart_validation', 'add_the_date_validation', 10, 5 ); 
