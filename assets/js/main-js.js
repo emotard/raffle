@@ -24,13 +24,14 @@ jQuery(document).ready(function($){
 
 
 	$('.single_add_to_cart_button').on('click', function(e){
+		e.preventDefault();
 		$.ajax({
 	        type : "post",
 	        dataType: 'JSON',
 	        url : ajaxurl,
 	        data : {action: "change_product_price_cart", newPrice: newPrice},
 	        success: function(response) {
-	 		
+	 			alert(response);
 	        }
 	    });
 	});

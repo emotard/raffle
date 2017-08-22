@@ -1,33 +1,74 @@
 <?php 
 
 
-/** * @desc Remove quantity drop down */ 
+/* 
+  save custom ticket quantity,
+  check if it exits,
+  check if the post ticket quantity is not the same as the meta,
+  display error else update and save quantity.
+*/
 
-function woo_remove_all_quantity_fields( $return, $product ) { 
+/* error display notice if above fails */
 
-  return true; 
+function ticket_already_set() {
+            ?>
+            <div class="error notice is-dismissible">
+                <p><?php _e( 'Once ticket quantity has been set it can not be change please delete the product and start again', 'my_plugin_textdomain' ); ?></p>
+                <button type="button" class="notice-dismiss">
+                  <span class="screen-reader-text">Dismiss this notice.</span>
+                </button>
+            </div>
+            <?php
+        }
 
-} 
+add_action( 'woocommerce_product_options_general_product_data', 'wc_custom_add_custom_fields' );
 
-add_filter( 'woocommerce_is_sold_individually', 'woo_remove_all_quantity_fields', 10, 2 );
+function wc_custom_add_custom_fields() {
+    // Print a custom text field
+    woocommerce_wp_text_input( array(
+        'id' => '_ticket_quantity',
+        'type' => 'number',
+        'label' => 'Ticket Quantity',
+        'description' => 'Once set can not be changed, to change please delete and re add',
+        'desc_tip' => 'true',
+        'placeholder' => 'Max quantity 100'
+    ) );
+}
+
+function wc_custom_save_custom_fields( $post_id ) {
+
+    $exits = get_post_meta($post_id, '_ticket_set');
+    $ticket_q = get_post_meta($post_id, '_ticket_quantity');
+    $new_q = $_POST['_ticket_quantity'];
+    if($exits[0] == "ticket_set"){
+      if($ticket_q[0] != $new_q ){
+          add_action( 'admin_notices', 'ticket_already_set' );
+      }
+    }else{
+       if ( ! empty( $_POST['_ticket_quantity'] ) ) {
+        update_post_meta($post_id, '_ticket_set', 'ticket_set');
+        update_post_meta( $post_id, '_ticket_quantity', esc_attr( $_POST['_ticket_quantity'] ) );
+        save_tickets_savePost($post_id);
+       }
+    }
+   
+}
+
+add_action( 'woocommerce_process_product_meta', 'wc_custom_save_custom_fields' );
 
 
-/* Set ticket quantity */
+/* Set ticket quantity ran if wc_custom_save_custom_fields does not fail */
 
-add_action('save_post_product', 'save_tickets_savePost', 10, 3);
-
-function save_tickets_savePost($postID, $post, $update) {
-    if (!$update) {
-        update_post_meta($postID, '_ticket_quantity', '50');
+function save_tickets_savePost($postID) {
+        global $wpdb;
 
         $ticket_q = get_post_meta( $postID, $key = '_ticket_quantity', $single = false);
 
         for ($i = 1; $i <= $ticket_q[0]; $i++){
-            global $wpdb;
             $table_name = $wpdb->prefix . "tickets";
             $wpdb->insert( $table_name, 
               array( 
-                  'product_id'     => $post->ID,
+                 'product_id'     => $postID,
                   'ticket_number' => $i,
                   'ticket_status'  => 'not_sold'
                 ), 
@@ -38,8 +79,8 @@ function save_tickets_savePost($postID, $post, $update) {
                 ) 
             );
         }
-    } 
 }
+
 
 
 

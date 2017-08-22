@@ -1,5 +1,5 @@
 /*
-Theme Name: Multi Child
+Theme Name: Raffle Git
 Description: This is a child theme for Flatsome Theme
 Author: UX Themes
 Template: flatsome
@@ -59,6 +59,17 @@ section#total-tickets-purchased {
     padding-bottom: 10px;
 }
 
+.wdm_options_table {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.woocommerce-cart input.plus.button.is-form {
+    display: none;
+}
+.woocommerce-cart input.minus.button.is-form {
+    display: none;
+}
 @media only screen and (max-width: 48em) {
 /*************** ADD MOBILE ONLY CSS HERE  ***************/
 

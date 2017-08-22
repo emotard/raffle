@@ -27,3 +27,9 @@ foreach ($results as $result) { ?>
 	 <div class="current-price"><?php echo $price ?></div>
 	</div>
 </section>
+
+<style>
+.product-summary .quantity {
+    display: none;
+}
+</style>
