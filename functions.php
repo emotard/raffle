@@ -4,7 +4,9 @@
 /* Main includes */
 
 include_once('includes/admin-functions.php');
-include_once('includes/public-functions.php');
+include_once('includes/single-product-override-functions.php');
+include_once('includes/cart-override-functions.php');
+include_once('includes/checkout-override-functions.php');
 
 /* enqueu scripts */
 
