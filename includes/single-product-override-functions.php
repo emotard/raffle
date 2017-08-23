@@ -27,13 +27,10 @@ function sv_change_product_price_display( $price ) {
 add_action( 'woocommerce_single_product_summary', 'tickets_left', 5 );
 
 function tickets_left(){
-	global $product;
+	
+  $tickets_left = how_many_tickets_left();
 
-	$id = $product->id;
-
-	$tickets_left = get_post_meta( $id, $key = '_ticket_quantity', $single = false );
-
-	echo 'Tickets Left ' . $tickets_left[0];
+  echo 'Tickets Left ' . $tickets_left[0];
 }
 
 /* Display tickets from db  */
@@ -42,20 +39,13 @@ add_action( 'woocommerce_single_product_summary', 'display_tickets', 10 );
 
 
 function display_tickets(){
-  global $product, $wpdb;
+  global $product;
 
   $id = $product->id;
   $_product = wc_get_product($id);
   $price = $_product->get_regular_price();
 
-  $results = $wpdb->get_results( 
-    $wpdb->prepare("
-        SELECT * FROM wp_tickets
-        WHERE product_id = %s
-        ", 
-        $id
-      ) 
-    );
+  $results = get_tickets_by_sql();
 
   require('template-parts/ticket-loop.php');
 }
@@ -91,6 +81,9 @@ function sv_change_product_price_cart( $cart_object ) {
     //session_destroy();
 }
 */
+
+
+
 
 
 
