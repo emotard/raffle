@@ -1,6 +1,10 @@
 <?php
 
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /* Main includes */
 
 include_once('includes/admin-functions.php');

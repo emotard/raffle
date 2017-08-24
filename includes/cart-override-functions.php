@@ -1,5 +1,9 @@
 <?php 
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 /* Check if the product is already in the cart */ 
 
 function add_the_date_validation( $passed, $product_id ) { 
@@ -145,3 +149,5 @@ if(!function_exists('wdm_remove_user_custom_data_options_from_cart'))
         }
     }
 }
+
+

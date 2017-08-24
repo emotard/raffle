@@ -4,7 +4,7 @@
 
 $tickets_left = how_many_tickets_left($id);
 
-if($tickets_left[0] != '0'){ 
+if($tickets_left[0] != "0"){ 
 
 	foreach ($results as $result) { ?>
 		<?php 

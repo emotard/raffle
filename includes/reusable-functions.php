@@ -1,10 +1,11 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+  exit;
+}
 
-function how_many_tickets_left(){
 
- 	global $product;
- 	$id = $product->id;
+function how_many_tickets_left($id){
 
 	$result = get_post_meta( $id, $key = '_ticket_quantity', $single = false );
 

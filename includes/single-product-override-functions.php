@@ -3,6 +3,10 @@
 /* enable the use of ajaxurl as a variable */
 
 
+if ( ! defined( 'ABSPATH' ) ) {
+  exit;
+}
+
 add_action('wp_head', 'myplugin_ajaxurl');
 
 function myplugin_ajaxurl() {
@@ -27,8 +31,9 @@ function sv_change_product_price_display( $price ) {
 add_action( 'woocommerce_single_product_summary', 'tickets_left', 5 );
 
 function tickets_left(){
-	
-  $tickets_left = how_many_tickets_left();
+	global $product;
+  $id = $product->id;
+  $tickets_left = how_many_tickets_left($id);
 
   echo 'Tickets Left ' . $tickets_left[0];
 }

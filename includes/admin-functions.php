@@ -1,5 +1,9 @@
 <?php 
 
+if ( ! defined( 'ABSPATH' ) ) {
+  exit;
+}
+
 
 /* 
   save custom ticket quantity,
@@ -40,16 +44,20 @@ function wc_custom_save_custom_fields( $post_id ) {
     $exits = get_post_meta($post_id, '_ticket_set');
     $ticket_q = get_post_meta($post_id, '_ticket_quantity');
     $new_q = $_POST['_ticket_quantity'];
+
     if($exits[0] == "ticket_set"){
       if($ticket_q[0] != $new_q ){
           add_action( 'admin_notices', 'ticket_already_set' );
       }
+
     }else{
+
        if ( ! empty( $_POST['_ticket_quantity'] ) ) {
         update_post_meta($post_id, '_ticket_set', 'ticket_set');
         update_post_meta( $post_id, '_ticket_quantity', esc_attr( $_POST['_ticket_quantity'] ) );
         save_tickets_savePost($post_id);
        }
+       
     }
    
 }
@@ -94,6 +102,20 @@ function delete_tickets( $pid ) {
 }
 
 
+/* add custom meta to admin orders from cart-override-functions */
+add_action('woocommerce_before_order_itemmeta','woocommerce_before_order_itemmeta',10,3);
+
+function woocommerce_before_order_itemmeta($item_id, $item, $product){
+   $item_data = $item->get_data();
+
+   $string .= " <strong>Ticket Numbers: ";
+   foreach ($item_data['meta_data'][1]->value as $ticket => $value) {
+     $string .= $value . '-';
+    }
+    $string .= "</strong>";
+
+    echo $string;
+  }
 
 
 /* unset product data which is not used */ 
